@@ -48,15 +48,17 @@ class Magestic_CmsNav_Model_Observer
 
         if ($page) {
         	$baseFieldset->addField('show_in_menu', 'select', array(
-                'label'     => Mage::helper('adminhtml')->__('Visible In Navigation Menu'),
-                'title'     => Mage::helper('adminhtml')->__('Visible In Navigation Menu'),
+                'label'     => Mage::helper('adminhtml')->__('Include In Navigation Menu'),
+                'title'     => Mage::helper('adminhtml')->__('Include In Navigation Menu'),
                 'name'      => 'show_in_menu',
                 'values'    => Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray()
             ),'identifier');
 
             $baseFieldset->addField('show_in_menu_priority', 'text', array(
-                'label'     => Mage::helper('adminhtml')->__('Menu Sort Order'),
-                'title'     => Mage::helper('adminhtml')->__('Menu Sort Order'),
+                'label'     => Mage::helper('adminhtml')->__('Navigation Menu Sort Order'),
+                'title'     => Mage::helper('adminhtml')->__('Navigation Menu Sort Order'),
+                'required'  => true,
+                'depends'   => 'show_in_menu',
                 'class'     => 'validate-zero-or-greater',
                 'name'      => 'show_in_menu_priority'
             ),'show_in_menu');
