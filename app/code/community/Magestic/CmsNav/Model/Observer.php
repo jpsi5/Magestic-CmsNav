@@ -53,6 +53,13 @@ class Magestic_CmsNav_Model_Observer
                 'name'      => 'show_in_menu',
                 'values'    => Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray()
             ),'identifier');
+
+            $baseFieldset->addField('show_in_menu_priority', 'text', array(
+                'label'     => Mage::helper('adminhtml')->__('Menu Sort Order'),
+                'title'     => Mage::helper('adminhtml')->__('Menu Sort Order'),
+                'class'     => 'validate-zero-or-greater',
+                'name'      => 'show_in_menu_priority'
+            ),'show_in_menu');
         }
 
         return $this;
@@ -69,7 +76,10 @@ class Magestic_CmsNav_Model_Observer
         // $block->addCacheTag(Mage_Catalog_Model_Category::CACHE_TAG);
         $storeId = Mage::app()->getStore()->getStoreId();
         $this->_addCmsPagesToMenu(
-            Mage::getModel('cms/page')->getCollection()->addStoreFilter($storeId), $observer->getMenu());
+            Mage::getModel('cms/page')
+                ->getCollection()
+                ->setOrder('show_in_menu_priority', 'ASC'), 
+            $observer->getMenu());
     }
 
     /**
