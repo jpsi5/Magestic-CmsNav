@@ -78,6 +78,7 @@ class Magestic_CmsNav_Model_Observer
         $this->_addCmsPagesToMenu(
             Mage::getModel('cms/page')
                 ->getCollection()
+                ->addStoreFilter($storeId)
                 ->setOrder('show_in_menu_priority', 'ASC'), 
             $observer->getMenu());
     }
